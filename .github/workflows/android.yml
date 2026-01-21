@@ -15,13 +15,15 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-version: 8.2 # Força o 8.2 para evitar o erro de 'Gradle 10' da imagem
+          gradle-version: 8.2
+          # Desativamos o cache temporariamente para evitar o erro '400' do GitHub
+          cache-disabled: true 
           
       - name: Compilar APK
         run: gradle assembleDebug --stacktrace
         
       - name: Salvar APK
-        uses: actions/upload-artifact@v4 # Versão v4 para corrigir o erro da imagem 1
+        uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
