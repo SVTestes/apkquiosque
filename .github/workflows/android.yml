@@ -6,22 +6,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Configurar JDK 17
+      - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
           
-      - name: Configurar Gradle Manualmente
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-version: 8.2 # Esta versão resolverá o erro da imagem 2
+          gradle-version: 8.2 # Força o 8.2 para evitar o erro de 'Gradle 10' da imagem
           
       - name: Compilar APK
-        run: gradle assembleDebug
+        run: gradle assembleDebug --stacktrace
         
-      - name: Salvar APK Gerado
-        uses: actions/upload-artifact@v4 # Versão corrigida para evitar o erro da imagem 1
+      - name: Salvar APK
+        uses: actions/upload-artifact@v4 # Versão v4 para corrigir o erro da imagem 1
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
