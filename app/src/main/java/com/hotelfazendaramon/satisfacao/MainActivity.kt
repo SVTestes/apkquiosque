@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
-    private val SENHA_ADMIN = "1234" 
-    private val URL_CHECKIN = "https://seu-link-checkin.com" // Substitua aqui
-    private val URL_CHECKOUT = "https://seu-link-checkout.com" // Substitua aqui
+    private val SENHA_ADMIN = "3522" 
+    private val URL_CHECKIN = "https://hotelfazendaramon.com.br/pesquisa-de-satisfacao/"
+    private val URL_CHECKOUT = "https://hotelfazendaramon.com.br/formulario-de-satisfacao/"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
