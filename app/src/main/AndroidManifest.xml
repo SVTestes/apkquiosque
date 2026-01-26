@@ -18,18 +18,17 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".MyDeviceAdminReceiver"
-            android:label="Admin Ramon"
-            android:permission="android.permission.BIND_DEVICE_ADMIN"
+        <service
+            android:name=".KioskService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:exported="true">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/device_admin_rules" />
             <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+                <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
-        </receiver>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
 
     </application>
 </manifest>
