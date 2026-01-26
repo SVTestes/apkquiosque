@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
-    private val SENHA_ADMIN = "3522" 
-    private val URL_CHECKIN = "https://hotelfazendaramon.com.br/pesquisa-de-satisfacao/"
-    private val URL_CHECKOUT = "https://hotelfazendaramon.com.br/formulario-de-satisfacao/"
+    private val SENHA_ADMIN = "1234" // SUA SENHA AQUI
+    private val URL_CHECKIN = "https://link-da-pesquisa-1.com"
+    private val URL_CHECKOUT = "https://link-da-pesquisa-2.com"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,28 +25,19 @@ class MainActivity : AppCompatActivity() {
         webView.settings.domStorageEnabled = true
         webView.webViewClient = WebViewClient()
 
-        // 1. Pergunta qual URL abrir ao iniciar o APK
         mostrarSelecaoDeUrl()
-
-        // 2. Tenta trancar o tablet (Requer o passo do ADB no final)
-        try {
-            startLockTask() 
-        } catch (e: Exception) {
-            // Log de erro caso o ADB não tenha sido executado
-        }
-        
         aplicarModoImersivo()
     }
 
     private fun mostrarSelecaoDeUrl() {
         val opcoes = arrayOf("Pesquisa Check-in", "Pesquisa Check-out")
         AlertDialog.Builder(this)
-            .setTitle("Selecione o Sistema")
+            .setTitle("Hotel Fazenda Ramon - Selecione")
             .setCancelable(false)
             .setItems(opcoes) { _, which ->
                 when (which) {
                     0 -> webView.loadUrl(URL_CHECKIN)
-                    1 -> webView.loadUrl(URL_CHECKOUT)
+                    1 -> webUrl.loadUrl(URL_CHECKOUT)
                 }
             }
             .show()
@@ -72,17 +63,13 @@ class MainActivity : AppCompatActivity() {
     private fun exibirPromptSenha() {
         val input = EditText(this)
         AlertDialog.Builder(this)
-            .setTitle("Área Administrativa")
-            .setMessage("Digite a senha para liberar o tablet:")
+            .setTitle("Área Restrita")
+            .setMessage("Digite a senha para sair:")
             .setView(input)
             .setCancelable(false)
             .setPositiveButton("Sair") { _, _ ->
-                if (input.text.toString() == SENHA_ADMIN) {
-                    stopLockTask() 
-                    finishAffinity() 
-                } else {
-                    aplicarModoImersivo()
-                }
+                if (input.text.toString() == SENHA_ADMIN) finishAffinity()
+                else aplicarModoImersivo()
             }
             .setNegativeButton("Voltar") { _, _ -> aplicarModoImersivo() }
             .show()
