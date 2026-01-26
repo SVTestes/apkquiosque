@@ -8,11 +8,11 @@ class KioskService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {}
     override fun onInterrupt() {}
 
-    // Intercepta e anula os botões Home e Apps Recentes
     override fun onKeyEvent(event: KeyEvent): Boolean {
         val keyCode = event.keyCode
+        // Bloqueia as ações dos botões de sistema
         if (keyCode == KeyEvent.KEYCODE_HOME || keyCode == KeyEvent.KEYCODE_APP_SWITCH) {
-            return true // Bloqueia a ação do botão
+            return true 
         }
         return super.onKeyEvent(event)
     }
